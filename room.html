@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ImportBabylon</title>
+	<style>
+
+	html, body{
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		#renderCanvas {
+			width: 100%;
+			height: 100%;
+			touch-action: none;
+		}
+	</style>
+	
+	<script src="babylon.custom.js"></script>
+
+</head>
+
+<body>
+	
+	<canvas id="renderCanvas"></canvas>
+
+	<script>
+		var canvas = document.getElementById("renderCanvas");
+		var engine = new BABYLON.Engine(canvas, true);
+
+		BABYLON.SceneLoader.Load("", "room1.babylon", engine, function (newScene) {
+            // Wait for textures and shaders to be ready
+            newScene.executeWhenReady(function () {
+                // Attach camera to canvas inputs
+                newScene.activeCamera.attachControl(canvas,true);
+
+                // Once the scene is loaded, just register a render loop to render it
+                engine.runRenderLoop(function() {
+                    newScene.render();
+                });
+            });
+        }, function (progress) {
+            // To do: give progress feedback to user
+        });
+		/*
+		var createScene = function() {
+			var scene = new BABYLON.Scene(engine);
+			var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 100, 100), scene);
+			var camera = new BABYLON.ArcRotateCamera("Camera", 0, .8, 100, BABYLON.Vector3.Zero(), scene);
+			camera.attachControl(canvas, true);
+
+			var sphere1 = BABYLON.Mesh.CreateSphere("Sphere1", 10.0, 6.0, scene);
+			var sphere2 = BABYLON.Mesh.CreateSphere("Sphere2", 2.0, 7.0, scene);
+			var sphere3 = BABYLON.Mesh.CreateSphere("Sphere3", 10.0, 8.0, scene);
+
+			
+
+			//materials
+			//var materialSphere1 = new BABYLON.StandardMaterial("texture1", scene);
+			
+			//sphere1.material = materialSphere1;
+
+			sphere1.material = new BABYLON.StandardMaterial("texture1", scene);
+			//change alpha
+			sphere1.material.alpha = .5;
+			//change color when light hits object
+			sphere1.material.diffuseColor = new BABYLON.Color3(1.0, 1, .7);
+			//texture. Supported: JPG, PNG, JPEG, BMP, GIF
+			///sphere1.material.diffuseTexture = new BABYLON.Texture("grass.png", scene);
+
+			//can tile. v = y, u = x direction
+			//materialSphere1.diffuseTexture.uScale = 5.0;
+
+			//emissive is the color produced by the object itself *******Liked the most. emissive can also have textures
+			sphere1.material.emissiveColor = new BABYLON.Color3(1, .2, .7);
+
+			//ambient. second level of diffuse
+			//sphere1.material.ambientColor = new BABYLON.Color3(0, 0, 1);
+
+			//wireframe
+			sphere1.material.wireframe = true;
+
+			sphere1.material.backFaceCulling = false;
+
+			sphere1.position.x = -40;
+			sphere2.position.x = -30;
+
+			return scene;
+
+		}
+
+		var scene = createScene();
+		engine.runRenderLoop(function() {
+			scene.render();
+		});
+		
+		window.addEventListener("resize", function() {
+			engine.resize();
+		});
+		*/
+	</script>
+
+</body>
+</html>
