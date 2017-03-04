@@ -31,10 +31,13 @@
 		var canvas = document.getElementById("renderCanvas");
 		var engine = new BABYLON.Engine(canvas, true);
 
-		BABYLON.SceneLoader.Load("", "room1.babylon", engine, function (newScene) {
+		BABYLON.SceneLoader.Load("", "room.babylon", engine, function (newScene) {
             // Wait for textures and shaders to be ready
             newScene.executeWhenReady(function () {
                 // Attach camera to canvas inputs
+               var camera = new BABYLON.FreeCamera("fCamera", new BABYLON.Vector3(1,1,1), newScene);
+                //camera.fov, 30;
+                newScene.activeCamera = camera;
                 newScene.activeCamera.attachControl(canvas,true);
 
                 // Once the scene is loaded, just register a render loop to render it
