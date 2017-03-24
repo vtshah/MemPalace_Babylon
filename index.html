@@ -19,7 +19,7 @@
 		}
 	</style>
 	
-	<script src="babylon.custom.js"></script>
+	<script src="assets/js/babylonjs/babylon.custom.js"></script>
 
 </head>
 
@@ -31,13 +31,13 @@
 		var canvas = document.getElementById("renderCanvas");
 		var engine = new BABYLON.Engine(canvas, true);
 
-		BABYLON.SceneLoader.Load("", "room.babylon", engine, function (newScene) {
+		BABYLON.SceneLoader.Load("", "assets/js/babylonjs/room.babylon", engine, function (newScene) {
             // Wait for textures and shaders to be ready
             newScene.executeWhenReady(function () {
                 // Attach camera to canvas inputs
-               var camera = new BABYLON.FreeCamera("fCamera", new BABYLON.Vector3(1,1,1), newScene);
-                //camera.fov, 30;
-                newScene.activeCamera = camera;
+               var freeCamera = new BABYLON.FreeCamera("fCamera", new BABYLON.Vector3(1,1,1), newScene);
+                newScene.activeCamera = freeCamera;
+                
                 newScene.activeCamera.attachControl(canvas,true);
 
                 // Once the scene is loaded, just register a render loop to render it
