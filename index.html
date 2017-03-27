@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ImportBabylon</title>
+	<title>DemoBabylon</title>
 	<style>
 
 	html, body{
@@ -20,13 +20,14 @@
 	</style>
 	
 	<script src="assets/js/babylonjs/babylon.custom.js"></script>
+	<script src="assets/js/Demo.js"></script>
 
 </head>
 
 <body>
 	
 	<canvas id="renderCanvas"></canvas>
-
+<!--
 	<script>
 		var canvas = document.getElementById("renderCanvas");
 		var engine = new BABYLON.Engine(canvas, true);
@@ -37,38 +38,8 @@
                 // Attach camera to canvas inputs
                var freeCamera = new BABYLON.FreeCamera("fCamera", new BABYLON.Vector3(20,50,1), newScene);
                 newScene.activeCamera = freeCamera;
-                //1,37,50,75=frame, 
-
-                //30=bottomtv,31,73,81=tv,8,69=shelftoptv
-
-                //3,12,6,7,38,43,57,62,64,77,82,87,101,104=lcouch, 
-                //9,15,19,22,24,32,39,65,74,90,93,96,97.111=rcouch, 
-
-                //2,10,28,47,99,106=rtable, 
-                //16,36,68,78,84,95=ltable,
-
-                //4,112,11,14,49,52,71,103=bathroom, 
-                //
-
-                //27=backwallbed,46=door,26,41,100=bathroomwall,58=allwalls
-                //67=floor
-
-                //13,40=lamptop,53,70,85,88=lampstand,
-                //51=bowl,18=tableunderbowl
-
-                //89=mirrortopbed,94,108=bed,23,29=pillow, 
-                
-
-                //25,35,42,44,45,59,60,79,80,86,102,105,110=chair2, 
-                //5,17,20,21,33,34,48,56,61,76,91,92,109=chair1,
-
-                
-                //54=ldrawer,55=mdrawer,83=rdrawer
-                //0,63=mats,66=desk,72,98,107=backframes
-                
-
-               	//total of 113 meshes
-                var mesh = newScene.meshes[115];
+               
+                var mesh = newScene.meshes[0];
 
                 newScene.activeCamera.attachControl(canvas,true);
 
@@ -81,63 +52,12 @@
         }, function (progress) {
             // To do: give progress feedback to user
         });
-		/*
-		var createScene = function() {
-			var scene = new BABYLON.Scene(engine);
-			var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 100, 100), scene);
-			var camera = new BABYLON.ArcRotateCamera("Camera", 0, .8, 100, BABYLON.Vector3.Zero(), scene);
-			camera.attachControl(canvas, true);
-
-			var sphere1 = BABYLON.Mesh.CreateSphere("Sphere1", 10.0, 6.0, scene);
-			var sphere2 = BABYLON.Mesh.CreateSphere("Sphere2", 2.0, 7.0, scene);
-			var sphere3 = BABYLON.Mesh.CreateSphere("Sphere3", 10.0, 8.0, scene);
-
-			
-
-			//materials
-			//var materialSphere1 = new BABYLON.StandardMaterial("texture1", scene);
-			
-			//sphere1.material = materialSphere1;
-
-			sphere1.material = new BABYLON.StandardMaterial("texture1", scene);
-			//change alpha
-			sphere1.material.alpha = .5;
-			//change color when light hits object
-			sphere1.material.diffuseColor = new BABYLON.Color3(1.0, 1, .7);
-			//texture. Supported: JPG, PNG, JPEG, BMP, GIF
-			///sphere1.material.diffuseTexture = new BABYLON.Texture("grass.png", scene);
-
-			//can tile. v = y, u = x direction
-			//materialSphere1.diffuseTexture.uScale = 5.0;
-
-			//emissive is the color produced by the object itself *******Liked the most. emissive can also have textures
-			sphere1.material.emissiveColor = new BABYLON.Color3(1, .2, .7);
-
-			//ambient. second level of diffuse
-			//sphere1.material.ambientColor = new BABYLON.Color3(0, 0, 1);
-
-			//wireframe
-			sphere1.material.wireframe = true;
-
-			sphere1.material.backFaceCulling = false;
-
-			sphere1.position.x = -40;
-			sphere2.position.x = -30;
-
-			return scene;
-
-		}
-
-		var scene = createScene();
-		engine.runRenderLoop(function() {
-			scene.render();
-		});
-		
-		window.addEventListener("resize", function() {
-			engine.resize();
-		});
-		*/
 	</script>
-
+-->
 </body>
+<script>
+	window.addEventListener("DOMContentLoaded", function() {
+		new Demo(document.getElementById('renderCanvas'));
+	});
+</script>
 </html>
