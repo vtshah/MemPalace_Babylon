@@ -2,23 +2,7 @@
 <html>
 <head>
 	<title>DemoBabylon</title>
-	<style>
-
-	html, body{
-			overflow: hidden;
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-		}
-
-		#renderCanvas {
-			width: 100%;
-			height: 100%;
-			touch-action: none;
-		}
-	</style>
-	
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<script src="assets/js/babylonjs/babylon.custom.js"></script>
 	<script src="assets/js/Demo.js"></script>
 
@@ -26,38 +10,12 @@
 
 <body>
 	
-	<canvas id="renderCanvas"></canvas>
-<!--
-	<script>
-		var canvas = document.getElementById("renderCanvas");
-		var engine = new BABYLON.Engine(canvas, true);
+	<canvas id="demo"></canvas>
 
-		BABYLON.SceneLoader.Load("", "assets/js/babylonjs/room.babylon", engine, function (newScene) {
-            // Wait for textures and shaders to be ready
-            newScene.executeWhenReady(function () {
-                // Attach camera to canvas inputs
-               var freeCamera = new BABYLON.FreeCamera("fCamera", new BABYLON.Vector3(20,50,1), newScene);
-                newScene.activeCamera = freeCamera;
-               
-                var mesh = newScene.meshes[0];
-
-                newScene.activeCamera.attachControl(canvas,true);
-
-                // Once the scene is loaded, just register a render loop to render it
-                engine.runRenderLoop(function() {
-                    mesh.position.x += .07;
-                    newScene.render();
-                });
-            });
-        }, function (progress) {
-            // To do: give progress feedback to user
-        });
-	</script>
--->
 </body>
 <script>
 	window.addEventListener("DOMContentLoaded", function() {
-		new Demo(document.getElementById('renderCanvas'));
+		new Demo(document.getElementById('demo'));
 	});
 </script>
 </html>

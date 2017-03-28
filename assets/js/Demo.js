@@ -66,22 +66,24 @@ Demo.prototype.initScene = function() {
 
     this.scene.activeCamera.attachControl(this.engine.getRenderingCanvas());
 
-    this.initCollision();
+    this.initCollision(this.scene);
+    this.ray(this.scene.activeCamera);
 }
 
-Demo.prototype.initCollision = function() {
-    const numberOfMeshes = 113;
+Demo.prototype.initCollision = function(scene) {
+    const N_MESHES = 113;
 
-    this.scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
-    this.scene.collisionsEnabled = true;
+    scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+    scene.collisionsEnabled = true;
 
-    var cam = this.scene.activeCamera;
+    var cam = scene.activeCamera;
     cam.applyGravity = true;
     cam.ellipsoid = new BABYLON.Vector3(5, 30, 5);
     cam.checkCollisions = true;
 
-    for(var i = 0; i < numberOfMeshes; i++) {
-        var mesh = this.scene.meshes[i];
+    //make everything have a collider
+    for(var i = 0; i < N_MESHES; i++) {
+        var mesh = scene.meshes[i];
         mesh.checkCollisions = true;
     }
 
@@ -91,9 +93,38 @@ Demo.prototype.initCollision = function() {
 
     
 
-    this.scene.meshes.forEach(function(mesh) {
+    scene.meshes.forEach(function(mesh) {
         if (mesh.name.indexOf("collider") != -1) {
             mesh.isVisible = false;
         }
     });
 };
+
+function vecToLocal(vector, mesh) {
+    var m = mesh.getWorldMatrix();
+    var v = BABYLON.Vector3.TransformCoordinates(vector, m);
+    return v;
+};
+
+Demo.prototype.ray = function(camera) {
+    var camOrigin = camera.position;
+
+    var forward = new BABYLON.Vector3(0,0,1);
+    forward = vecToLocal(forward, camera);
+
+    var direction = forward.subtract(camOrigin);
+    direction = BABYLON.Vector3.Normalize(direction);
+
+    var length = 100;
+
+    var ray = new BABYLON.Ray(camOrigin, direction, length);
+    ray.show(this.scene, new BABYLON.Color3(0,0,0));
+
+    var hit = this.scene.pickWithRay(ray);
+    console.log("coming through")
+    if(hit.pickedMesh) {
+        hit.pickedMesh.scaling.y += .01;
+    }
+}
+
+
