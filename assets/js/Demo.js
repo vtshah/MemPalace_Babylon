@@ -76,7 +76,7 @@ var Demo = function(canvasId) {
 Demo.prototype.initScene = function() {
 
     //camera attach to canvas
-    var freeCamera = new BABYLON.FreeCamera("fCamera", 
+    var freeCamera = new BABYLON.DeviceOrientationCamera("fCamera", 
         new BABYLON.Vector3(30,50,1), this.scene);
 
     this.scene.activeCamera = freeCamera;
@@ -192,7 +192,7 @@ Demo.prototype.fur = function(scene) {
     furMaterial.furGravity = new BABYLON.Vector3(0, -1, 0);
 
 
-    var bed = scene.meshes[67];
+    var bed = scene.meshes[108];
     bed.material = furMaterial;
 /*
 
