@@ -76,7 +76,7 @@ var Demo = function(canvasId) {
 Demo.prototype.initScene = function() {
 
     //camera attach to canvas
-    var freeCamera = new BABYLON.DeviceOrientationCamera("fCamera", 
+    var freeCamera = new BABYLON.WebVRFreeCamera("fCamera", 
         new BABYLON.Vector3(30,50,1), this.scene);
 
     this.scene.activeCamera = freeCamera;
