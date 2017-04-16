@@ -1,4 +1,4 @@
-var VERSION = 1.0, 
+var VERSION = 1.0,
     AUTHOR = "Brian Servia";
 
 
@@ -39,16 +39,16 @@ var VERSION = 1.0,
 
 document.addEventListener("DOMContentLoaded", function() {
     new Demo("demo");
-},false);
+}, false);
 
 
 
 var Demo = function(canvasId) {
-    
+
     var canvas = document.getElementById(canvasId);
     this.engine = new BABYLON.Engine(canvas, true);
     var _this = this;
-    
+
     //resize window
     window.addEventListener("resize", function() {
         _this.engine.resize();
@@ -58,22 +58,23 @@ var Demo = function(canvasId) {
 
 
     //load scene
-    BABYLON.SceneLoader.Load("", "assets/js/babylonjs/room.babylon", 
-        this.engine, function (scene) {
+    BABYLON.SceneLoader.Load("", "assets/js/babylonjs/room.babylon",
+        this.engine,
+        function(scene) {
             _this.scene = scene;
-            
 
-        _this.initScene();
-        window.addEventListener("mousemove", function (event) {
-        var pickResult = _this.scene.pick(_this.scene.pointerX, _this.scene.pointerY);
-        console.log(pickResult);
-        });
-            
 
+            _this.initScene();
+            window.addEventListener("mousemove", function(event) {
+                var pickResult = _this.scene.pick(_this.scene.pointerX, _this.scene.pointerY);
+                console.log(pickResult);
+            });
 
 
 
-           // var mesh = scene.meshes[31];
+
+
+            // var mesh = scene.meshes[31];
             //mesh.pickable = true;
 
 
@@ -90,88 +91,91 @@ var Demo = function(canvasId) {
 Demo.prototype.initScene = function() {
 
     //camera attach to canvas
-    var freeCamera = new BABYLON.FreeCamera("fCamera", 
-        new BABYLON.Vector3(30,50,1), this.scene);
+    // var freeCamera = new BABYLON.FreeCamera("fCamera",
+    //     new BABYLON.Vector3(30, 50, 1), this.scene);
+
+    var freeCamera = new 
+    BABYLON.VRDeviceOrientationFreeCamera("fCamera", new BABYLON.Vector3(30, 50, 1), this.scene);
 
     this.scene.activeCamera = freeCamera;
 
     this.scene.activeCamera.attachControl(this.engine.getRenderingCanvas());
     var cam = this.scene.activeCamera;
-    
+
     var target = this.scene.meshes[108];
     cam.target = target.position;
 
     this.initCollision(this.scene);
     console.log(this.scene.pointerX);
-//--------------------------------------------------------------------------------    
+    //--------------------------------------------------------------------------------    
     //make box, and project ray from inside
     //var box = new BABYLON.Mesh.CreateBox("box1", 4, this.scene);
-/*
-    var floor = this.scene.meshes[63];
-    floor.isPickable = true;
+    /*
+        var floor = this.scene.meshes[63];
+        floor.isPickable = true;
 
-    var origin = box.position;
-    console.log(origin);
-    
-    var forward = new BABYLON.Vector3(0,0,1);       
-    var m = cam.getWorldMatrix();
-    var v = BABYLON.Vector3.TransformCoordinates(forward, m);
-    forward = v;
-    var direction = forward.subtract(origin);
-    direction = BABYLON.Vector3.Normalize(direction);
-    
-    var length = 100;
+        var origin = box.position;
+        console.log(origin);
+        
+        var forward = new BABYLON.Vector3(0,0,1);       
+        var m = cam.getWorldMatrix();
+        var v = BABYLON.Vector3.TransformCoordinates(forward, m);
+        forward = v;
+        var direction = forward.subtract(origin);
+        direction = BABYLON.Vector3.Normalize(direction);
+        
+        var length = 100;
 
-    var ray = new BABYLON.Ray(origin, direction, length);
-    
-    //BABYLON.rayHelper.CreateAndShow(ray, this.scene, new BABYLON.Color3(1,1,.1));
-    //rayHelper.show(scene);
-    var rayHelper = new BABYLON.RayHelper(ray);
-    
+        var ray = new BABYLON.Ray(origin, direction, length);
+        
+        //BABYLON.rayHelper.CreateAndShow(ray, this.scene, new BABYLON.Color3(1,1,.1));
+        //rayHelper.show(scene);
+        var rayHelper = new BABYLON.RayHelper(ray);
+        
 
-    rayHelper.attachToMesh(cam, direction, origin, length);
-    //ray.show(this.scene, new BABYLON.Color3(1, 1, 0.1));
-    rayHelper.show(this.scene);
-  */  
-  /*
+        rayHelper.attachToMesh(cam, direction, origin, length);
+        //ray.show(this.scene, new BABYLON.Color3(1, 1, 0.1));
+        rayHelper.show(this.scene);
+      */
+    /*
     this.scene.onPointerObservable.add (function(evt) {
         var pi = evt.pickInfo;
         console.log(pi);
     },BABYLON.PointerEventTypes.POINTER);
 */
-/*
-    window.addEventListener("mousemove", function (event) {
-        console.log(this.scene.pointerX, this.scene.pointerY, event);
-        // We try to pick an object
-        //var pi = event.pickInfo;
-        //var pickResult = this.scene.pick(this.scene.pointerX, this.scene.pointerY);
-        //console.log(pi);
-    });
-  */  
+    /*
+        window.addEventListener("mousemove", function (event) {
+            console.log(this.scene.pointerX, this.scene.pointerY, event);
+            // We try to pick an object
+            //var pi = event.pickInfo;
+            //var pickResult = this.scene.pick(this.scene.pointerX, this.scene.pointerY);
+            //console.log(pi);
+        });
+      */
 
 
-  /*
-    this.scene.registerBeforeRender(function(){
+    /*
+      this.scene.registerBeforeRender(function(){
 
-        //box.rotation.y += .01;
+          //box.rotation.y += .01;
 
-        //var hitInfo = ray.intersectsMeshes([floor]);
-        //console.log(hitInfo);
-        if(1){
-           // console.log(hitInfo);
-            //sphere.setEnabled(true);
-            //sphere.position.copyFrom(hitInfo[0].pickedPoint);
-        }else{
-            //console.log("no");
-            //sphere.setEnabled(false);
-        }
+          //var hitInfo = ray.intersectsMeshes([floor]);
+          //console.log(hitInfo);
+          if(1){
+             // console.log(hitInfo);
+              //sphere.setEnabled(true);
+              //sphere.position.copyFrom(hitInfo[0].pickedPoint);
+          }else{
+              //console.log("no");
+              //sphere.setEnabled(false);
+          }
 
-    });
-    */
+      });
+      */
     //this.fur(this.scene);
 
 
-    
+
 };
 
 Demo.prototype.initCollision = function(scene) {
@@ -187,13 +191,13 @@ Demo.prototype.initCollision = function(scene) {
     //cam.isPickable = false;
 
     //make everything have a collider
-    for(var i = 0; i < N_MESHES; i++) {
+    for (var i = 0; i < N_MESHES; i++) {
         var mesh = scene.meshes[i];
         mesh.checkCollisions = true;
         mesh.isPickable = true;
     }
 
-    
+
 
     scene.meshes.forEach(function(mesh) {
         if (mesh.name.indexOf("collider") != -1) {
@@ -209,9 +213,9 @@ Demo.prototype.ray = function(camera, scene) {
     //var tv = scene.meshes[73];
     //tv.isPickable = true;
 
-   // var ray = new BABYLON.Ray();
+    // var ray = new BABYLON.Ray();
 
-   
+
 
 
 
@@ -224,8 +228,8 @@ Demo.prototype.ray = function(camera, scene) {
 Demo.prototype.fur = function(scene) {
     //7,62,87(somewhere inside), [38,57,82,104]llegs
     //[,,,]rleg
-    var leftCouch =[3,12,6,7,43,62,64,77,87,101],
-    rightCouch = [9,15,19,22,24,32,39,65,74,90,93,96,97,111];
+    var leftCouch = [3, 12, 6, 7, 43, 62, 64, 77, 87, 101],
+        rightCouch = [9, 15, 19, 22, 24, 32, 39, 65, 74, 90, 93, 96, 97, 111];
 
     var furMaterial = new BABYLON.FurMaterial("fur", scene);
     furMaterial.furLength = 4;
@@ -241,11 +245,11 @@ Demo.prototype.fur = function(scene) {
 
     var bed = scene.meshes[108];
     bed.material = furMaterial;
-/*
+    /*
 
-    for(var i = 0; i < leftCouch.length; i++) {
-        var lcouch = scene.meshes[leftCouch[i]];
-        lcouch.material = furMaterial;
-    }
-    */
+        for(var i = 0; i < leftCouch.length; i++) {
+            var lcouch = scene.meshes[leftCouch[i]];
+            lcouch.material = furMaterial;
+        }
+        */
 }
